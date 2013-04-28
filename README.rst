@@ -65,7 +65,7 @@ When kobol is run in development mode, it will check for the existence of a '.ko
         articles.html
         feed.xml
 
-If a .kobol file is not present, *kobol will overwrite existing files,* but the only files kobol provides are its own theme files. If a .kobol file is present, it won't create any files or directories.
+If a .kobol file is not present, *kobol will overwrite existing files,* but the only files kobol provides are its own theme files so this is an effective way of updating the default theme to the latest version. If a .kobol file is present, it won't create any files or directories.
 
 Information Architecture
 ________________________
