@@ -65,7 +65,7 @@ When kobol is run in development mode, it will check for the existence of a '.ko
         articles.html
         feed.xml
 
-If a .kobol file is not present, *kobol will overwrite existing files,* but the only files kobol provides are its own theme files so this is an effective way of updating the default theme to the latest version. If a .kobol file is present, it won't create any files or directories.
+If a .kobol file is not present, *kobol will overwrite existing files,* but the only files kobol provides are its own theme files so deleting an empty .kobol is an effective way of updating the default theme to the latest version. If a .kobol file is present, it won't create any files or directories.
 
 Information Architecture
 ________________________
@@ -83,22 +83,20 @@ _______
 
 Content is defined in text files, one file per page or article.
 
-The name of the file on the filesystem will also be the name of the file in the URL. For example, 'pages/about' on the filesystem will be available at 'http://mydomain.tld/about', and 'articles/why_i_hate_kobol' will be at 'http://mydomain.tld/articles/why_i_hate_kobol'.
-
 Individual files are organized in a "YAML over Markdown" structure that's very easy to use.
 
-    * A header block is written in YAML and defines some metadata about the document. Any metadata placed here will be available to the template, so put anything you may wish to use in this block. Some values are expected, and they're described below.
-    * A blank line separates the metadata from the content.
-    * The rest of the file is content, and it's written in Markdown. Kobol supports standard markdown plus footnotes and code highlighting.
+* A header block is written in YAML and defines some metadata about the document. Any metadata placed here will be available to the template, so put anything you may wish to use in this block. Some values are expected, and they're described below.
+* A blank line separates the metadata from the content.
+* The rest of the file is content, and it's written in Markdown. Kobol supports standard markdown plus footnotes and code highlighting.
 
 The expected metadata in the YAML section are:
 
-    * pagetitle: The <h1> title for the page. Used by both pages and articles.
-    * longtitle: A description of the page. Used by both pages and articles.
-    * menuindex: The position of this page in the menu. Used by pages.
-    * published: The published date of the article. Used by articles.
-    * excerpt: An excerpt, summary, introduction, or abstract for the article. Used by articles.
-    * tags: A list of tag words or categories that describe the article. Used by articles.
+* pagetitle: The <h1> title for the page. Used by both pages and articles.
+* longtitle: A description of the page. Used by both pages and articles.
+* menuindex: The position of this page in the menu. Used by pages.
+* published: The published date of the article. Used by articles.
+* excerpt: An excerpt, summary, introduction, or abstract for the article. Used by articles.
+* tags: A list of tag words or categories that describe the article. Used by articles.
 
 Metadata are used by templates to create web pages and navigation elements, and because you can create your own templates, you can use any metadata you'd like to add. For example, if your site has more than one author, you might wish to include a byline on each article specifying the author's name and email address. To include this information, simply add more variables in the metadata section of the file, and add a byline to your article template.
 
