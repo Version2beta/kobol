@@ -100,6 +100,8 @@ The expected metadata in the YAML section are:
 
 Metadata are used by templates to create web pages and navigation elements, and because you can create your own templates, you can use any metadata you'd like to add. For example, if your site has more than one author, you might wish to include a byline on each article specifying the author's name and email address. To include this information, simply add more variables in the metadata section of the file, and add a byline to your article template.
 
+A note on dates and times: YAML is pretty strict about dates and times. Basically, the structure is YYYY-MM-DD HH:MM:SS +/-HH:MM. That's the four digit year, two digit month, two digit day, then the hour base 24, minutes, and seconds, followed by the timezone offset. An example might be "2012-04-28 19:30:00 -05:00". If you're printing the date and time a post is published, you might want to provide all of this information. However, if you just want to show the date, you can stop after the date portion. If you leave off the timezone portion, UTC is assumed.
+
 Configuration
 _____________
 
