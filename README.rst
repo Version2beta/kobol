@@ -105,30 +105,32 @@ A note on dates and times: YAML is pretty strict about dates and times. Basicall
 Configuration
 _____________
 
-Kobol requires no custom configuration for development or build. Kobol's default configuration is::
+Kobol requires little custom configuration for development or build. Kobol's default configuration is::
 
-    { 'kobol': {
+    {
+      'title': 'kobol',
+      'description': 'a site built with kobol',
+      'author': 'blogger',
+      'url': 'http://kobol.version2beta.com',
       'theme': 'kobol',
       'pages': [ 'pages' ],
       'articles': [ 'articles' ],
       'assets': [ 'assets' ],
       'templates': [ 'templates' ],
-      'deploy': [ 'build': { 'build'} ]
-    }}
+      'deploy': [ 'build': { 'build'} ],
+      'description': 'a site built with kobol'
+    }
 
 These defaults will be used regardless of whether the settings are present in the configuration file. You can specify alternatives in the .kobol configuration file. Alternatives are used only if the settings are present and specify different values.
 
-Many default settings can be overridden::
+Default settings can be overridden simply by adding them to the .kobol file. Any values not in .kobol will default to the values above. A .kobol file might look like::
 
-    { 'kobol': {
-      ...
-      'theme': 'mytheme',
-      'pages': [ 'mypages' ],
-      'articles': [ 'myposts' ],
-      'assets': [ 'myassets' ],
-      'templates': [ 'mytemplates' ],
-      ...
-    }}
+    {
+      'title': 'KOBOL ROCKS',
+      'description': 'a kobol fan site',
+      'author': 'Apollo',
+      'url': 'http://ilikebattlestargalacticaandilikestaticsitegenerators.com',
+    }
 
 Kobol will look in several places for valid configuration files. In order of priority, with the files toward the bottom of the list overriding settings higher in the list:
 

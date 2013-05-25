@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{ site.config.title }}</title>
+  <link href="/atom.xml" rel="self"/>
+  <link href="{{ site.config.url }}"/>
+  <updated>{{ now.strftime("%Y-%m-%dT%H:%M:%S") }}</updated>
+  <id>{{ site.config.url }}</id>
+  {% for article in site.articles %}
+  <entry>
+    <title>{{ article.pagetitle }}</title>
+    <author><name>{{ article.author }}</name></author>
+    <link href="{{ site.config.url}}{{ page.filename }}"/>
+    <updated>{{ article.published.strftime("%Y-%m-%dT%H:%M:%S") }}</updated>
+    <published>{{ article.published.strftime("%Y-%m-%dT%H:%M:%S") }}</published>
+    <id>{{ site.config.url }}{{ article.filename }}</id>
+    <content type="html">
+    {{ article.content|safe }}
+    </content>
+  </entry>
+  {% endfor %}
+</feed>

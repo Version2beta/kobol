@@ -9,6 +9,7 @@ import boto
 from boto.s3.key import Key
 
 from configuration import Configuration
+from resources import Site, Page
 
 class Kobol(object):
 

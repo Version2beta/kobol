@@ -54,3 +54,7 @@ class TestAddingSkeletonFiles(unittest.TestCase):
     expect(os.path.isfile(tmp_dir + '/.kobol')) == True
     shutil.rmtree(tmp_dir)
 
+class TestTheSiteDictionary(unittest.TestCase):
+
+  def test_the_site_dictionary(self):
+    pass

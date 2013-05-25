@@ -6,6 +6,9 @@ DEFAULT_CONFIGURATION_FILES = [
   './.kobol',
 ]
 DEFAULT_CONFIGURATION = {
+  'title': 'kobol',
+  'description': 'a site built with kobol',
+  'url': 'http://kobol.version2beta.com',
   'theme': 'kobol',
   'pages': [ 'pages' ],
   'articles': [ 'articles' ],

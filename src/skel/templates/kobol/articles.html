@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="post-content">
+  <dl>
+    {% for article in site.articles %}
+    <dt><a href="/{{ article.filename }}" title="{{ article.longtitle }}">{{ article.pagetitle }}</a></dt>
+    <dd><span class="pubdate"><time pubdate>{{ article.published.strftime('%Y-%m-%d') }}</time></span> {{ article.excerpt|safe }}</dd>
+    {% endfor %}
+  </dl>
+</div>  <!--end post-content-->
+{% endblock %}

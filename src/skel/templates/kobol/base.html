@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>{% block title %}{{ site.config.title }}{% endblock %}</title>
+    {% block meta_tags -%}
+    {% if site.page.longtitle -%}
+    <meta name="description" content="{{ site.page.longtitle }}" />
+    {%- else -%}
+    <meta name="description" content="{{ site.config.description }}" />
+    {%- endif %}
+    {%- endblock %}
+    {% block feeds -%}
+    <link href="/archive/atom.xml" rel="alternate" title="{{ site.config.title }}" type="application/atom+xml" />
+    {%- endblock %}
+    {% block css -%}
+    <link rel="stylesheet" href="/themes/{{ site.config.theme }}/base.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/themes/{{ site.config.theme }}/site.css" type="text/css" media="screen" />
+    {%- block extra_css -%}{%- endblock -%}
+    {%- endblock %}
+    <link rel="shortcut icon" href="/themes/{{ site.config.theme }}/favicon.ico" />
+</head>
+<body>
+<div id="site">
+  <div class="container">
+    <div class="row">
+      <a href="/" id="sitename">{{ site.config.title }}</a>
+    </div>
+  </div><!-- .container -->
+  <div class="container">
+    <div class="row">
+      <div class="threecol">
+        <nav>
+          <ul class="sitenav">
+          </ul>
+        </nav>
+      </div>
+      <div class="eightcol last">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div><!-- .container -->
+</div><!-- #site -->
+<footer>
+<div id='footer'>
+  <p>general: <a href="mailto:rob@version2beta.com">rob@version2beta.com</a> | twitter: <a href="http://twitter.com/version2beta" title="version2beta is on Twitter">@      version2beta</a></p>
+  <p>
+    This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+  </p>
+  <p><a href="/atom.xml" title="A news feed for my blog"><img src="/static/css/rss32p.png" alt="RSS feed icon" /></a></p>
+</div>
+</footer>
+
+{% block js %}
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12023701-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="/static/js/css3-mediaqueries.js"></script>
+{% block extra_js %}{% endblock %}
+{% endblock %}
+</body>
+</html>
