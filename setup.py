@@ -23,6 +23,8 @@ setup(
     ],
     package_data={
         '': ['*.dist'],
+        '': ['src/tests/support'],
+        '': ['src/skel'],
       },
     entry_points={
         'console_scripts': [

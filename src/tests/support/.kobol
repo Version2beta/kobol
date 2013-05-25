@@ -1,0 +1,7 @@
+{
+  "theme": "mytheme",
+  "pages": [ "mypages" ],
+  "articles": [ "myposts" ],
+  "assets": [ "myassets" ],
+  "templates": [ "mytemplates" ]
+}

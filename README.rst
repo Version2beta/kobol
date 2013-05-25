@@ -130,6 +130,15 @@ Many default settings can be overridden::
       ...
     }}
 
+Kobol will look in several places for valid configuration files. In order of priority, with the files toward the bottom of the list overriding settings higher in the list:
+
+* /etc/kobol.conf
+* ~/.kobol
+* ./.kobol
+
+Deployment
+----------
+
 Deployment will, by default, only build the site locally. Deploying to AWS S3 requires your AWS API key and secret. These are also stored in .kobol configuration file::
 
     { 'kobol': {
