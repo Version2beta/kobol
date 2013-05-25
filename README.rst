@@ -157,13 +157,13 @@ The current version of kobol supports deployment to AWS S3 buckets. Future versi
 API
 _______
 
-```
-from kobol import Kobol
-k = Kobol() # defaults to current working directory
-k = Kobol('/path/to/dir') # specify a target path
-```
+Kobol can be called from within other Python programs::
 
-```k.config``` contains the configuration dictionary 
+    from kobol import Kobol
+    k = Kobol() # defaults to current working directory
+    k = Kobol('/path/to/dir') # specify a target path
+
+``k.config`` contains the configuration dictionary.
 
 Credits
 _______
