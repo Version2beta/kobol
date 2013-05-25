@@ -1,5 +1,6 @@
 import os
 import tempfile
+import shutil
 import unittest
 from expecter import expect
 import dingus
@@ -20,6 +21,12 @@ class TestDefaultConfiguration(unittest.TestCase):
     c = kobol.Configuration()
     expect(c['deploy']) == []
 
+  def test_kobol_configures_self(self):
+    tmp_dir = tempfile.mkdtemp()
+    c = Kobol(tmp_dir)
+    c.main()
+    shutil.rmtree(tmp_dir)
+    expect(c.config['theme']) == 'kobol'
 
 class TestAddingConfigurationFiles(unittest.TestCase):
 
@@ -34,7 +41,7 @@ class TestAddingConfigurationFiles(unittest.TestCase):
 class TestAddingSkeletonFiles(unittest.TestCase):
 
   def test_kobol_identifies_a_directory_to_scaffold(self):
-    k = Kobol('.')
+    k = Kobol()
     expect(k.scaffold(dry = True)) == True
 
   def test_kobol_identifies_a_directory_not_to_scaffold(self):
@@ -45,5 +52,5 @@ class TestAddingSkeletonFiles(unittest.TestCase):
     tmp_dir = tempfile.mkdtemp()
     Kobol(tmp_dir).scaffold()
     expect(os.path.isfile(tmp_dir + '/.kobol')) == True
-    os.unlink(tmp_dir)
+    shutil.rmtree(tmp_dir)
 

@@ -1,2 +1,0 @@
-class Scaffold(object):
-  pass
