@@ -154,6 +154,17 @@ Deployment will, by default, only build the site locally. Deploying to AWS S3 re
 
 The current version of kobol supports deployment to AWS S3 buckets. Future versions will likely provide other deployment options.
 
+API
+_______
+
+```
+from kobol import Kobol
+k = Kobol() # defaults to current working directory
+k = Kobol('/path/to/dir') # specify a target path
+```
+
+```k.config``` contains the configuration dictionary 
+
 Credits
 _______
 
