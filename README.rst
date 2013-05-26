@@ -72,9 +72,9 @@ ________________________
 
 Kobol makes some assumptions about the locations of your content, and expects it to be organized on the file system the same way it will be organized on the website.
 
-Pages are static content that are not organized by time. Kobol will look for them by default in a 'pages' subdirectory, and they can be nested. Pages will be presented on the site nested just as they are in the file system and kobol will always render the pages menu as a nested unordered list. Pages will also be linked at addresses matching their location under the pages subdirectory. For example, 'myproject/pages/about/careers' will be linked at 'about/careers'.
+Pages are static content that are not organized by time. Kobol will look for them by default in a 'pages' subdirectory, and they can be nested. Pages will be presented on the site nested just as they are in the file system and kobol will always render the pages menu as a nested unordered list. Pages will also be linked at addresses matching their location under the pages subdirectory. For example, 'myproject/pages/about/careers.yaml' will be linked at 'about/careers'.
 
-Articles are content that is organized and presented by time. Kobol will look for them by default in an 'articles' subdirectory, but they are not nested. Articles will be presented on a article navigation page within an <article> element, with each pagetitle in a <header> element and linking to the article page. Articles are always organized by the published date in reverse chronological order (most recent articles first). Articles will be linked under the articles section. For example, an article saved on the file system as 'why_i_love_kobol' will be linked at 'articles/why_i_love_kobol'.
+Articles are content that is organized and presented by time. Kobol will look for them by default in an 'articles' subdirectory, but they are not nested. Articles will be presented on a article navigation page within an <article> element, with each pagetitle in a <header> element and linking to the article page. Articles are always organized by the published date in reverse chronological order (most recent articles first). Articles will be linked under the articles section. For example, an article saved on the file system as 'why_i_love_kobol.yaml' will be linked at 'articles/why_i_love_kobol'.
 
 The semantic HTML is created using Jinja2 (http://jinja.pocoo.org/docs/) templates that can be modified to suit your individual needs. They are stored under the 'templates' directory organized by theme. Styling for each theme is stored under the 'themes' directory, also organized by theme. Kobol comes with one theme called 'kobol', which is defined by the templates under 'templates/kobol' and styles under 'themes/kobol'.
 
@@ -86,15 +86,15 @@ Content is defined in text files, one file per page or article.
 Individual files are organized in a "YAML over Markdown" structure that's very easy to use.
 
 * A header block is written in YAML and defines some metadata about the document. Any metadata placed here will be available to the template, so put anything you may wish to use in this block. Some values are expected, and they're described below.
-* A blank line separates the metadata from the content.
+* Three periods ('...') alone on a line separate the metadata from the content.
 * The rest of the file is content, and it's written in Markdown. Kobol supports standard markdown plus footnotes and code highlighting.
 
 The expected metadata in the YAML section are:
 
 * pagetitle: The <h1> title for the page. Used by both pages and articles.
 * longtitle: A description of the page. Used by both pages and articles.
+* published: The published date of the article. Used by pages and articles. Note that any date past or future will make the item live on the site.
 * menuindex: The position of this page in the menu. Used by pages.
-* published: The published date of the article. Used by articles.
 * excerpt: An excerpt, summary, introduction, or abstract for the article. Used by articles.
 * tags: A list of tag words or categories that describe the article. Used by articles.
 
@@ -108,17 +108,17 @@ _____________
 Kobol requires little custom configuration for development or build. Kobol's default configuration is::
 
     {
-      'title': 'kobol',
-      'description': 'a site built with kobol',
-      'author': 'blogger',
-      'url': 'http://kobol.version2beta.com',
-      'theme': 'kobol',
-      'pages': [ 'pages' ],
-      'articles': [ 'articles' ],
-      'assets': [ 'assets' ],
-      'templates': [ 'templates' ],
-      'deploy': [ 'build': { 'build'} ],
-      'description': 'a site built with kobol'
+      "title": "kobol",
+      "description": "a site built with kobol",
+      "author": "blogger",
+      "url": "http://kobol.version2beta.com",
+      "theme": "kobol",
+      "pages": [ "pages" ],
+      "articles": [ "articles" ],
+      "assets": [ "assets" ],
+      "templates": [ "templates" ],
+      "extension": ".yaml",
+      "deploy": []
     }
 
 These defaults will be used regardless of whether the settings are present in the configuration file. You can specify alternatives in the .kobol configuration file. Alternatives are used only if the settings are present and specify different values.
@@ -126,10 +126,10 @@ These defaults will be used regardless of whether the settings are present in th
 Default settings can be overridden simply by adding them to the .kobol file. Any values not in .kobol will default to the values above. A .kobol file might look like::
 
     {
-      'title': 'KOBOL ROCKS',
-      'description': 'a kobol fan site',
-      'author': 'Apollo',
-      'url': 'http://ilikebattlestargalacticaandilikestaticsitegenerators.com',
+      "title": "KOBOL ROCKS",
+      "description": "a kobol fan site",
+      "author": "Lee Adama",
+      "url": "http://ilikebattlestargalacticaandilikestaticsitegenerators.com",
     }
 
 Kobol will look in several places for valid configuration files. In order of priority, with the files toward the bottom of the list overriding settings higher in the list:

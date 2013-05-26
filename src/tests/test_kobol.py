@@ -10,33 +10,35 @@ from kobol import Kobol
 class TestDefaultConfiguration(unittest.TestCase):
 
   def test_theme_is_kobol(self):
-    c = kobol.Configuration()
-    expect(c['theme']) == 'kobol'
+    k = Kobol()
+    expect(k.config['theme']) == 'kobol'
 
   def test_articles_are_articles(self):
-    c = kobol.Configuration()
-    expect(c['articles']) == ['articles']
+    k = Kobol()
+    expect(k.config['articles']) == ['articles']
 
   def test_deploy_is_empty(self):
-    c = kobol.Configuration()
-    expect(c['deploy']) == []
+    k = Kobol()
+    expect(k.config['deploy']) == []
 
   def test_kobol_configures_self(self):
     tmp_dir = tempfile.mkdtemp()
-    c = Kobol(tmp_dir)
-    c.main()
+    k = Kobol(tmp_dir)
+    k.main()
     shutil.rmtree(tmp_dir)
-    expect(c.config['theme']) == 'kobol'
+    expect(k.config['theme']) == 'kobol'
 
 class TestAddingConfigurationFiles(unittest.TestCase):
 
   def test_adding_one_more_file(self):
-    c = kobol.Configuration('support/.kobol')
-    expect(c.get('pages')) == [ 'mypages' ]
+    k = Kobol()
+    k.load_config_files('support/.kobol')
+    expect(k.config.get('theme')) == 'kobol'
 
   def test_adding_two_more_file(self):
-    c = kobol.Configuration( [ 'support/.kobol', 'support/final_config.conf' ] )
-    expect(c.get('theme')) == 'RADTHEME'
+    k = Kobol()
+    k.load_config_files([ 'support/.kobol', 'support/final_config.conf' ])
+    expect(k.config.get('theme')) == 'RADTHEME'
 
 class TestAddingSkeletonFiles(unittest.TestCase):
 
@@ -46,15 +48,27 @@ class TestAddingSkeletonFiles(unittest.TestCase):
 
   def test_kobol_identifies_a_directory_not_to_scaffold(self):
     k = Kobol('./support/')
-    expect(k.scaffold(dry = True)) == False
+    expect(k.scaffold()) == False
 
   def test_kobol_scaffolds_a_project(self):
     tmp_dir = tempfile.mkdtemp()
     Kobol(tmp_dir).scaffold()
     expect(os.path.isfile(tmp_dir + '/.kobol')) == True
-    shutil.rmtree(tmp_dir)
+    #shutil.rmtree(tmp_dir)
 
 class TestTheSiteDictionary(unittest.TestCase):
 
-  def test_the_site_dictionary(self):
-    pass
+  def test_loading_the_site_configuration(self):
+    k = Kobol('./support')
+    expect(k.site['config']['title']) == 'kobol'
+
+  def test_loading_pages_into_the_site_dictionary(self):
+    k = Kobol('./support')
+    k.site.load()
+    expect(k.site['pages'][0]['pagetitle']) == 'test1'
+
+  def test_loading_articles_into_the_site_dictionary(self):
+    k = Kobol('./support')
+    k.site.load()
+    expect(k.site['articles'][1]['pagetitle']) == 'test2'
+

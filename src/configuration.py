@@ -1,3 +1,5 @@
+import os
+import sys
 from flask import json
 
 DEFAULT_CONFIGURATION_FILES = [
@@ -8,36 +10,32 @@ DEFAULT_CONFIGURATION_FILES = [
 DEFAULT_CONFIGURATION = {
   'title': 'kobol',
   'description': 'a site built with kobol',
-  'url': 'http://kobol.version2beta.com',
+  'author': 'blogger',
+  'url': 'http://kobol.version2beta.com/',
   'theme': 'kobol',
   'pages': [ 'pages' ],
   'articles': [ 'articles' ],
   'assets': [ 'assets' ],
   'templates': [ 'templates' ],
+  'extension': '.yaml',
   'deploy': []
 }
 
-class Configuration(object):
+class Configuration(dict):
   """ Create a configuration object from various sources. """
 
-  def __init__(self, files = DEFAULT_CONFIGURATION_FILES):
-    self._dict = DEFAULT_CONFIGURATION.copy()
+  def __init__(self, *args, **kwargs):
+    super(Configuration, self).__init__(*args, **kwargs)
+    self.update(DEFAULT_CONFIGURATION)
+    self.load(DEFAULT_CONFIGURATION_FILES)
+
+  def load(self, files):
     files = files if type(files) == list else [files]
     for f in files:
       try:
-        self._dict.update(json.load(open(f, 'r')))
+        self.update(json.load(open(os.path.expanduser(f), 'r')))
       except IOError:
         pass
-
-  def __getitem__(self, key):
-    return self._dict[key]
-
-  def get(self, key):
-    return self._dict[key]
-
-  def __setitem__(self, key, value):
-    self._dict[key] = value
-
-  def set(self, key, value):
-    self._dict[key] = value
+      except:
+        sys.stderr.write("Warning: could not read configuration file %s." % f)
 

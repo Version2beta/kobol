@@ -1,7 +1,7 @@
 {
-  "theme": "mytheme",
-  "pages": [ "mypages" ],
-  "articles": [ "myposts" ],
-  "assets": [ "myassets" ],
-  "templates": [ "mytemplates" ]
+  "title": "kobol",
+  "description": "a site built with kobol",
+  "author": "blogger",
+  "url": "http://kobol.version2beta.com/",
+  "theme": "kobol"
 }

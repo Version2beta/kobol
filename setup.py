@@ -17,6 +17,7 @@ setup(
       'flask_frozen',
       'pygments',
       'boto',
+      'PyYAML',
       'unittest',
       'expecter',
       'dingus'

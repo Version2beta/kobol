@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ site.article.pagetitle }}{% endblock %}
+
+{% block content %}
+<div id="content-header">
+  <h1>{{ site.article.pagetitle }}</h1>
+  <p class="post-date">
+    <time pubdate>{{ site.article.published.strftime('%Y-%m-%d at %H:%M') }}</time><br />
+  </p>
+  <p class="readable">
+    <a href="/{{ site.article.name }}/readable/" title="Highly readable version">Highly readable version</a></p>
+  </p>
+</div><!-- #content-header -->
+<div id="post-content">
+  {{ site.article.content|safe }}
+</div>  <!--end post-content-->
+{% endblock %}
