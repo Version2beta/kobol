@@ -65,10 +65,15 @@ class TestTheSiteDictionary(unittest.TestCase):
   def test_loading_pages_into_the_site_dictionary(self):
     k = Kobol('./support')
     k.site.load()
-    expect(k.site['pages'][0]['pagetitle']) == 'test1'
+    expect(k.site['pages']['/test1/']['pagetitle']) == 'test1'
 
   def test_loading_articles_into_the_site_dictionary(self):
     k = Kobol('./support')
     k.site.load()
-    expect(k.site['articles'][1]['pagetitle']) == 'test2'
+    expect(k.site['pages']['/articles/test2/']['pagetitle']) == 'test2'
+
+  def test_site_map(self):
+    k = Kobol('./support')
+    k.site.load()
+    expect(k.site['sitemap']) == {}
 

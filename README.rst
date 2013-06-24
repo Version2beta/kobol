@@ -93,8 +93,10 @@ The expected metadata in the YAML section are:
 
 * pagetitle: The <h1> title for the page. Used by both pages and articles.
 * longtitle: A description of the page. Used by both pages and articles.
+* template: Indicates which template to use (named without the '.html' extension.)
 * published: The published date of the article. Used by pages and articles. Note that any date past or future will make the item live on the site.
 * menuindex: The position of this page in the menu. Used by pages.
+* hidden: Set to 'true' (or 'yes' or 'on') to indicate this page should not be shown in menus, navigation pages, and the sitemap.
 * excerpt: An excerpt, summary, introduction, or abstract for the article. Used by articles.
 * tags: A list of tag words or categories that describe the article. Used by articles.
 
@@ -169,7 +171,5 @@ Kobol can be called from within other Python programs::
 
 Credits
 _______
-
-My daughter and I are writing this together. Miranda's Github is https://github.com/mirandahandley. We hope to be presenting Kobol within a couple of months.
 
 The name of this project is (of course) inspired by Battlestar Galactica, but the nod to Admiral Grace Hopper is also entirely intentional.

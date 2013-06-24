@@ -12,37 +12,68 @@ class Site(dict):
   def config(self, configuration):
     self['config'] = configuration
 
-  def load(self, page = None):
-    self['pages'] = self.load_from_dirs(self['config']['pages'])
-    self['pages'].sort(key = lambda x: x.get('menuindex'))
-    self['articles'] = self.load_from_dirs(self['config']['articles'])
-    self['articles'].sort(key = lambda x: x.get('published'), reverse = True)
-    if page:
-      self['page'] = self.load_page(page)
+  def load(self):
+    self['pages'] = self.load_from_dirs(
+        self['config']['pages'],
+        default_template = 'page',
+        pagetype = 'page')
+    self['pages'].update(self.load_from_dirs(
+        self['config']['articles'],
+        default_template = 'article',
+        pagetype = 'article'))
+    self['sitemap'] = self.build_sitemap()
 
-  def load_from_dirs(self, dirs):
-    result = []
-    if type(dirs) != list:
-      dirs = [dirs]
+  def load_from_dirs(self, dirs, **kwargs):
+    result = {}
+    d = dirs if type(dirs) == list else [dirs]
     for d in dirs:
       for path, dirs, files in os.walk(self['config']['home'] + d):
+        basepath = ('/%s/' % path).replace(self['config']['home'], '')
         for f in files:
           if f.endswith(self['config']['extension']):
             metadata = self.load_meta(path + '/' + f)
-            metadata['path'] = path + '/' + f
-            metadata['directory'] = ('/%s/' % path).replace(
-                self['config']['home'], '')
-            metadata['filename'] = f.replace(self['config']['extension'], '')
-            metadata['route'] = metadata['directory'] + metadata['filename']
-            result.append(metadata)
+            metadata['pagetype'] = kwargs['pagetype']
+            metadata['template'] = metadata.get('template') or \
+                kwargs['default_template']
+            result[metadata['route']] = metadata
     return result
 
   def load_meta(self, page):
-    metadata = open(page, 'r').read().split('...')[0]
-    return yaml.safe_load(metadata)
+    headers, content = open(page, 'r').read().split('...')[:2]
+    metadata = yaml.safe_load(headers)
+    metadata['content'] = content
+    metadata['path'] = page
+    metadata['route'] = '/' + metadata['path'].replace(
+        self['config']['home'], '').replace(
+        'pages/', '').replace(
+        self['config']['extension'], '') + '/'
+    return metadata
 
-  def load_content(self, page):
-    pass
+  def build_sitemap(self):
+    result = {}
+    result['pages'] = self.extract_by_type()
+    return result
 
-  def load_page(self, page):
-    pass
+  def extract_by_type(self):
+    result = {}
+    for k in self['pages'].keys():
+      page = self['pages'][k]
+      current_level = result
+      for part in page['route'].split('/')[1:-1]:
+        print part, 
+        if 'children' not in current_level:
+          print "creating a child"
+          current_level['children'] = []
+        current_level['children'].append({'level': part})
+        current_level = current_level['children'][-1]
+      current_level.update({
+        'pagetitle': page.get('pagetitle'),
+        'longtitle': page.get('longtitle'),
+        'menuindex': page.get('menuindex'),
+        'published': page.get('published'),
+        'excerpt': page.get('excerpt'),
+        'route': page.get('route')
+      })
+    print result
+    return result
+
